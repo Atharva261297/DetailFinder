@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script type="text/javascript">
+    function onSubmit( form ){
+      var data = JSON.stringify( $(form).serializeArray() );
+      return data;
+    }
+</script>
+</head>
+<body>
+Register
+
+<form onsubmit='return onSubmit(this)' method="post" >
+    <label for="userId">User ID:</label><br>
+    <input type="text" id="userId" name="userId"><br>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="pos">Position:</label><br>
+    <select id="pos" name="pos">
+        <option th:each="colorOpt : ${T(com.atharva.detailfinder.model.Positions).values()}"
+                th:value="${colorOpt}" th:text="${colorOpt}"></option>
+    </select><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="mobile">Mobile:</label><br>
+    <input type="number" id="mobile" name="mobile"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <input type="submit">
+</form>
+
+</body>
+
+</html>

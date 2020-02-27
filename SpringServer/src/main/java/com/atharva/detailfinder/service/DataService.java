@@ -126,14 +126,26 @@ public class DataService {
     }
 
 
-    public void addUser(final User user) {
-        user.setHash(new byte[]{});
-        dataDao.addUser(user);
+    public Response addUser(final User user) {
+		Response response = getUser(user.getUserId());
+		if (response.getCode() == 403) {
+			user.setHash(new byte[]{});
+			dataDao.addUser(user);
+			return new Response(200, null);
+		} else {
+			return new Response(405, null);
+		}
     }
 
-    public void addUser(final User user, final String pass) {
-        user.setHash(HashUtils.getHash(pass));
-        dataDao.addUser(user);
+    public Response addUser(final User user, final String pass) {
+		Response response = getUser(user.getUserId());
+		if (response.getCode() == 403) {
+			user.setHash(HashUtils.getHash(pass));
+			dataDao.addUser(user);
+			return new Response(200, null);
+		} else {
+			return new Response(405, null);
+		}
     }
 
     public Response getUser(final String userId) {
@@ -142,7 +154,7 @@ public class DataService {
             user.setHash(null);
             return new Response(200, new Gson().toJson(user));
         }
-        return new Response(201, null);
+        return new Response(403, null);
     }
 
     public void updateUser(final User user) {

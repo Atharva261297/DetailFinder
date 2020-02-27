@@ -36,7 +36,6 @@ public class AuthController {
         final String[] split = auth.split(":");
         final String userId = new String(Base64.getDecoder().decode(split[0]));
         user.setUserId(userId);
-        dataService.addUser(user, split[1]);
-        return new Response(200, null);
+        return dataService.addUser(user, split[1]);
     }
 }

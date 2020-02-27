@@ -19,8 +19,8 @@ public class TestController {
     }
 
     @PostMapping("/addUser")
-    public void addUser(final User user) {
-        dataService.addUser(user);
+    public Response addUser(final User user) {
+        return dataService.addUser(user);
     }
 
     @GetMapping("/getUser")
